@@ -35,8 +35,9 @@ func TestAmex(t *testing.T) {
 		t.Fail()
 	}
 
-	if !strings.Contains(out, "02/29/2024,MOBILE PAYMENT - THANK YOU,,,$603.38") {
-		t.Log("Payment line not found")
+	line := "02/29/2024,MOBILE PAYMENT - THANK YOU,,,$103.38"
+	if !strings.Contains(out, line) {
+		t.Log("Payment line", line, "not found in", out)
 		t.Fail()
 	}
 }

@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const Version = "0.01"
+const Version = "0.0.2"
 
 type PluginIf interface {
 	Applicable(lines []string) bool
@@ -27,7 +27,7 @@ func FindPlugin(log *zap.SugaredLogger, fname string) (PluginIf, error) {
 		return nil, err
 	}
 
-	plugins := []PluginIf{NewCiti(), NewBofa(), NewBofaCC(), NewAmex()}
+	plugins := []PluginIf{NewCiti(), NewBofa(), NewBofaCC(), NewAmex(), NewChase()}
 
 	log.Debugw("Input read", "Lines", lines)
 

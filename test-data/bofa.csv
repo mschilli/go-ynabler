@@ -1,0 +1,10 @@
+Description,,Summary Amt.
+Beginning balance as of 02/14/2024,,"12,345.67"
+Total credits,,"12.34"
+Total debits,,"-56.78"
+Ending balance as of 03/03/2024,,"456.789"
+
+Date,Description,Amount,Running Bal.
+02/14/2024,Beginning balance as of 02/14/2024,,"12,345.67"
+02/14/2024,"Check 1234","-1,234.56","11,111.11"
+02/15/2024,"MIGHTY DUCKS SALARY","2,345.67","13,456.78"

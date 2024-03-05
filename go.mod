@@ -1,4 +1,4 @@
-module github.com/mschilli/ynabler
+module github.com/mschilli/go-ynabler
 
 go 1.21.6
 

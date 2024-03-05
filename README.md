@@ -35,7 +35,7 @@ to create a CSV format that YNAB's import function under the specific account wi
 
 This Github repo contains the underlying code, if you want to develop with it:
 
-`go get -u github.com/mschilli/ynabler`
+`go get -u github.com/mschilli/go-ynabler`
 
 ## Author
 

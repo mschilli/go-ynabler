@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const Version = "0.0.2"
+const Version = "0.0.3"
 
 type PluginIf interface {
 	Applicable(lines []string) bool
@@ -70,6 +70,17 @@ func asCSV(rows [][]string) (string, error) {
 	w.Flush()
 
 	return buf.String(), nil
+}
+
+func toAbsDollars(amount string) string {
+	if len(amount) == 0 {
+		return ""
+	}
+
+	if strings.Contains(amount, "-") {
+		return "$" + amount[1:]
+	}
+	return "$" + amount
 }
 
 func toOutIn(amount string) (string, string) {

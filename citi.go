@@ -41,7 +41,8 @@ func (p CitiPlugin) Process(log *zap.SugaredLogger, lines []string) (string, err
 			return "", err
 		}
 
-		outFlow, inFlow := toOutIn(inrow[3])
+		outFlow := toAbsDollars(inrow[3])
+		inFlow := toAbsDollars(inrow[4])
 
 		row := []string{inrow[1], inrow[2], "", outFlow, inFlow}
 		rows = append(rows, row)

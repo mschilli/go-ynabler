@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const Version = "0.0.3"
+const Version = "0.0.4"
 
 type PluginIf interface {
 	Applicable(lines []string) bool

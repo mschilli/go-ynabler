@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const Version = "0.0.3"
+const Version = "0.0.4"
 
 func main() {
 	verbose := flag.Bool("verbose", false, "Verbose mode")

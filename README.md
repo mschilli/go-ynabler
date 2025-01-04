@@ -4,6 +4,12 @@ Go library to convert various bank/ccard CSV formats to fit YNAB's import functi
 
 ## How to use it
 
+To fetch, compile and install the ynabler binary, simply run
+
+```
+go install github.com/mschilli/go-ynabler/cmd/ynabler@latest
+```
+
 To install ynabler via Homebrew, use
 
 ```

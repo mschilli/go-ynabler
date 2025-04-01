@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/csv"
 	"flag"
 	"fmt"
 	"github.com/mschilli/go-ynabler/annotate"
 	"go.uber.org/zap"
 	"os"
+	"time"
 )
 
 const Version = "0.0.1"
@@ -53,5 +55,39 @@ func main() {
 				o.Item,
 			)
 		}
+		return
+	}
+
+	csvFile := flag.Arg(0)
+
+	file, err := os.Open(csvFile)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	r := csv.NewReader(file)
+
+	log.Debug("Reading", zap.String("csv file", csvFile))
+	recs, err := r.ReadAll()
+	if err != nil {
+		panic(err)
+	}
+
+	for _, rec := range recs[1:] {
+		ts, err := time.Parse("01/02/2006", rec[0])
+		if err != nil {
+			panic(err)
+		}
+		if len(rec[3]) == 0 {
+			log.Info("Ignoring", zap.String("credit", rec[4]))
+			continue
+		}
+		price, err := annotate.IntFromAmount(rec[3])
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("%v %d\n", ts, price)
 	}
 }

@@ -105,7 +105,7 @@ func (s *Orders) ParseHistoryFile(filename string) error {
 					zap.String("ship time", record[18]))
 			}
 
-			amt, err := intFromAmount(record[9])
+			amt, err := IntFromAmount(record[9])
 			if err != nil {
 				err = fmt.Errorf("Line %d: %s", line, err)
 				return err
@@ -132,7 +132,7 @@ func asAmount(v int64) string {
 	return fmt.Sprintf("%.2f", float64(v)/100)
 }
 
-func intFromAmount(s string) (int64, error) {
+func IntFromAmount(s string) (int64, error) {
 	found := int64(0)
 
 	s = strings.ReplaceAll(s, "$", "")

@@ -7,6 +7,7 @@ import (
 	"github.com/mschilli/go-ynabler/annotate"
 	"go.uber.org/zap"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -74,13 +75,16 @@ func main() {
 		panic(err)
 	}
 
+	writer := csv.NewWriter(os.Stdout)
+	writer.Write(recs[0])
+
 	for _, rec := range recs[1:] {
 		ts, err := time.Parse("01/02/2006", rec[0])
 		if err != nil {
 			panic(err)
 		}
 		if len(rec[3]) == 0 {
-			log.Info("Ignoring", zap.String("credit", rec[4]))
+			log.Debug("Ignoring", zap.String("credit", rec[4]))
 			continue
 		}
 		price, err := annotate.IntFromAmount(rec[3])
@@ -88,6 +92,19 @@ func main() {
 			panic(err)
 		}
 
-		fmt.Printf("%v %d\n", ts, price)
+		o, err := orders.ExtractAt(price, ts.AddDate(0, 0, -3))
+		if err == nil {
+			maxLen := 40
+			item := o.Item
+			if len(item) > maxLen {
+				item = item[:maxLen-1]
+			}
+			rec[1] = item + " " + rec[1]
+		} else {
+			log.Debug("No order found for", zap.String("transaction", strings.Join(rec, " ")))
+		}
+
+		writer.Write(rec)
+		writer.Flush()
 	}
 }

@@ -17,10 +17,10 @@ func main() {
 
 	flag.Parse()
 	flag.Usage = func() {
-	    fmt.Fprintf(flag.CommandLine.Output(),
-		"Usage: %s --orders=orders.csv ynabler.csv\n", os.Args[0])
-	    flag.PrintDefaults()
-        }
+		fmt.Fprintf(flag.CommandLine.Output(),
+			"Usage: %s --orders=orders.csv ynabler.csv\n", os.Args[0])
+		flag.PrintDefaults()
+	}
 
 	if *version {
 		fmt.Println(Version, Version)
@@ -32,24 +32,26 @@ func main() {
 		log = zap.NewExample()
 	}
 
-	if flag.NArg() != 1 {
-	    log.Error("Provide a valid ynabler .csv file")
-	    flag.Usage()
-	    os.Exit(1)
+	if len(*orderFile) == 0 {
+		log.Error("Provide a valid order file")
+		flag.Usage()
+		os.Exit(1)
 	}
 
 	orders := annotate.NewOrders()
 	err := orders.ParseHistoryFile(*orderFile)
 	if err != nil {
-		log.Error("")
+		log.Error("Can't parse", zap.String("file", *orderFile))
 		return
 	}
 
-	for _, o := range orders.Orders {
-		fmt.Printf("%s,%.2f,%.60s\n",
-			o.At.Format("2006-01-02"),
-			float64(o.Total)/100,
-			o.Item,
-		)
+	if flag.NArg() == 0 {
+		for _, o := range orders.Orders {
+			fmt.Printf("%s,%.2f,%.60s\n",
+				o.At.Format("2006-01-02"),
+				float64(o.Total)/100,
+				o.Item,
+			)
+		}
 	}
 }

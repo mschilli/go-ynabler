@@ -99,7 +99,7 @@ func main() {
 			if len(item) > maxLen {
 				item = item[:maxLen-1]
 			}
-			rec[1] = item + " " + rec[1]
+			rec[2] = item
 		} else {
 			log.Debug("No order found for", zap.String("transaction", strings.Join(rec, " ")))
 		}

@@ -37,6 +37,16 @@ Date,Payee,Memo,Outflow,Inflow
 
 to create a CSV format that YNAB's import function under the specific account will accept.
 
+## Merge credit card data with Amazon order data
+
+With `annotate`, there's an experimental utility to use a .csv file containing
+Amazon orders (can be downloaded on Amazon under "Your Data") and a .csv file,
+already converted to YNAB format.  Out comes a YNAB compatible file with the
+"mem" fields set to item names from the order file. The match occurs by price,
+so it might not be correct in all cases.
+
+   ynabler-annotate --orders=amzn-orders.csv ynabler.csv 
+
 ## Installation
 
 This Github repo contains the underlying code, if you want to develop with it:
